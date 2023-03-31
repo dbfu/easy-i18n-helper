@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>字符串</title>
+  <style type="text/css">
+    body.vscode-light {
+      color: #333;
+    }
+
+    body.vscode-dark {
+      color: #eee;
+    }
+
+    body.vscode-high-contrast {
+      color: red;
+    }
+
+    body,
+    table {
+      font-size: var(--vscode-editor-font-size);
+      word-break: break-word;
+    }
+
+    table {
+      table-layout: fixed;
+      empty-cells: show;
+      border-collapse: collapse;
+      margin: 0 auto;
+    }
+
+    a {
+      user-select: none;
+    }
+
+    td {
+      height: 30px;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-size: 12px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .table {
+      border: 1px solid #cad9ea;
+    }
+
+    .table th {
+      background-repeat: repeat-x;
+      height: 30px;
+    }
+
+    .table td,
+    .table th {
+      border: 1px solid #cad9ea;
+      padding: 10px 1em;
+      cursor: pointer;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 0.8em 2em;
+      background-color: #5867dd;
+      /* background-color: transparent; */
+      color: #fff;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      position: relative;
+      box-shadow: 0 2px 25px rgba(123, 104, 238, 0.5);
+      outline: 0;
+      transition: transform ease-in 0.1s, background-color ease-in 0.1s, box-shadow ease-in 0.25s;
+      font-size: 16px;
+    }
+
+    .button::before {
+      position: absolute;
+      content: '';
+      left: -2em;
+      right: -2em;
+      top: -2em;
+      bottom: -2em;
+      pointer-events: none;
+      transition: ease-in-out .5s;
+      background-repeat: no-repeat;
+      background-image: radial-gradient(circle, #5867dd 20%, transparent 20%),
+        radial-gradient(circle, #5867dd 20%, transparent 20%),
+        radial-gradient(circle, #5867dd 20%, transparent 20%),
+        radial-gradient(circle, #5867dd 20%, transparent 20%),
+        radial-gradient(circle, #5867dd 20%, transparent 20%),
+        radial-gradient(circle, #5867dd 20%, transparent 20%),
+        radial-gradient(circle, #5867dd 20%, transparent 20%),
+        radial-gradient(circle, #5867dd 20%, transparent 20%),
+        radial-gradient(circle, #5867dd 20%, transparent 20%),
+        /*  */
+        radial-gradient(circle, #5867dd 20%, transparent 20%),
+        radial-gradient(circle, #5867dd 20%, transparent 20%),
+        radial-gradient(circle, #5867dd 20%, transparent 20%),
+        radial-gradient(circle, #5867dd 20%, transparent 20%),
+        radial-gradient(circle, #5867dd 20%, transparent 20%),
+        radial-gradient(circle, #5867dd 20%, transparent 20%),
+        radial-gradient(circle, #5867dd 20%, transparent 20%);
+      background-size: 10% 10%, 20% 20%, 15% 15%, 20% 20%, 18% 18%, 10% 10%, 15% 15%, 10% 10%, 18% 18%,
+        15% 15%, 20% 20%, 18% 18%, 20% 20%, 15% 15%, 10% 10%, 20% 20%;
+      background-position: 18% 40%, 20% 31%, 30% 30%, 40% 30%, 50% 30%, 57% 30%, 65% 30%, 80% 32%, 15% 60%,
+        83% 60%, 18% 70%, 25% 70%, 41% 70%, 50% 70%, 64% 70%, 80% 71%;
+      animation: bubbles ease-in-out .75s forwards;
+    }
+
+    .button:active {
+      transform: scale(0.95);
+      background-color: #5867dd;
+      box-shadow: 0 2px 25px rgba(123, 104, 238, 0.6);
+    }
+
+    .button:active::before {
+      animation: none;
+      background-size: 0;
+    }
+
+    @keyframes bubbles {
+      0% {
+        background-position: 18% 40%, 20% 31%, 30% 30%, 40% 30%, 50% 30%, 57% 30%, 65% 30%, 80% 32%, 15% 60%,
+          83% 60%, 18% 70%, 25% 70%, 41% 70%, 50% 70%, 64% 70%, 80% 71%;
+      }
+
+      50% {
+        background-position: 10% 44%, 0% 20%, 15% 5%, 30% 0%, 42% 0%, 62% -2%, 75% 0%, 95% -2%, 0% 80%,
+          95% 55%, 7% 100%, 24% 100%, 41% 100%, 55% 95%, 68% 96%, 95% 100%;
+      }
+
+      100% {
+        background-position: 5% 44%, -5% 20%, 7% 5%, 23% 0%, 37% 0, 58% -2%, 80% 0%, 100% -2%, -5% 80%,
+          100% 55%, 2% 100%, 23% 100%, 42% 100%, 60% 95%, 70% 96%, 100% 100%;
+        background-size: 0% 0%;
+      }
+    }
+  </style>
+  <script>
+    window.words = <%- JSON.stringify(words) %>;
+  </script>
+</head>
+
+<body>
+  <div style="text-align: right;margin: 20px auto; width: 96%; font-size: 16px;">
+    <button class="button">翻 译</button>
+  </div>
+  <table width="96%" class="table">
+    <tr>
+      <th>字符串</th>
+      <th style="width: 100px;">操作</th>
+    </tr>
+    <% words.forEach(function (item, index) { %>
+      <tr id="tr_<%=item.id%>">
+        <td class="name" data-id="<%=item.id%>">
+          <%=item.value%>
+        </td>
+        <td style="text-align: center;">
+          <a data-id="<%=item.id%>" class='delete'>删除<a />
+        </td>
+      </tr>
+      <% }); %>
+  </table>
+  <script>
+    const vscode = acquireVsCodeApi();
+    function tableClick(e) {
+      const { target } = e;
+
+      if (target.nodeName === 'A' && target.className === 'delete') {
+        const id = target.getAttribute('data-id');
+
+        const tr = document.querySelector(`tr#tr_${id}`);
+        tr.remove();
+
+        window.words = window.words.filter(o => o.id !== id);
+      } else if (target.nodeName === 'TD' && target.className === 'name') {
+        const id = target.getAttribute('data-id');
+        const rowData = window.words.find(o => o.id === id);
+
+        vscode.postMessage({
+          data: rowData,
+          type: "open",
+        });
+      }
+    }
+
+    function translate() {
+      vscode.postMessage({
+        data: window.words,
+        type: "translate",
+      });
+    }
+
+    document.onkeyup = (e) => {
+      if (e.keyCode === 13) {
+        translate();
+      }
+    }
+    document.querySelector('.table').addEventListener('click', tableClick);
+    document.querySelector(".button").addEventListener('click', translate);
+  </script>
+  <script>
+    // const vscode = acquireVsCodeApi();
+
+
+
+    // document.querySelectorAll('td').forEach(ele => {
+    //   ele.onclick = (e) => {
+    //     if (ele.classList.contains('src')) {
+    //       vscode.postMessage({
+    //         data: {
+    //           startLine: ele.getAttribute('startLine'),
+    //           startColumn: ele.getAttribute('startColumn'),
+    //           endLine: ele.getAttribute('endLine'),
+    //           endColumn: ele.getAttribute('endColumn'),
+    //           isJsxAtt: ele.hasAttribute("jsx"),
+    //           needAdd: ele.hasAttribute("need"),
+    //           componentType: ele.getAttribute("componentType"),
+    //         },
+    //         type: "open",
+    //       });
+    //       return;
+    //     } else {
+    //       if (e.target.tagName === "A") {
+    //         e.target.parentNode.parentNode.remove();
+    //       }
+    //     }
+    //   }
+    // })
+
+    // document.querySelector(".button").onclick = () => {
+    //   translate();
+    // }
+
+    // document.onkeyup = (e) => {
+    //   if (e.keyCode === 13) {
+    //     translate();
+    //   }
+    // }
+
+    // function translate() {
+    //   const data = [];
+    //   document.querySelectorAll("tr").forEach((ele, index) => {
+    //     if (index > 0) {
+    //       const row = {};
+    //       let element = ele.children[0];
+    //       row.value = element.innerText;
+    //       row.startLine = element.getAttribute("startLine");
+    //       row.startColumn = element.getAttribute("startColumn");
+    //       row.endLine = element.getAttribute("endLine");
+    //       row.endColumn = element.getAttribute("endColumn");
+    //       row.isJsxAttr = element.hasAttribute("jsx");
+    //       row.needAdd = element.hasAttribute("need");
+    //       row.componentType = element.getAttribute("componentType");
+    //       row.leftSpaceLength = element.getAttribute("leftSpaceLength");
+    //       row.rightSpaceLength = element.getAttribute("rightSpaceLength");
+    //       row.isJsxText = element.hasAttribute("jsxText");
+    //       data.push(row);
+    //     }
+    //   });
+    //   vscode.postMessage({
+    //     data,
+    //     type: "translate",
+    //   });
+    // }
+
+  </script>
+</body>
+
+</html>

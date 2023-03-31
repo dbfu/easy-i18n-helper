@@ -1,5 +1,5 @@
 {
-  "name": "easy-i18n-helper",
+	"name": "easy-i18n-helper",
 	"displayName": "",
 	"description": "支持自动获取文件代码中的中文，自动翻译成各种语言并自动保存到本地。",
 	"version": "0.0.1",
@@ -9,17 +9,65 @@
 	"categories": [
 		"Other"
 	],
-	"activationEvents": [
-        "onCommand:easy-i18n-helper.helloWorld"
-	],
+	"activationEvents": [],
 	"main": "./dist/extension.js",
 	"contributes": {
+		"configuration": {
+			"title": "easy-i18n-helper",
+			"properties": {
+				"easy-i18n-helper.Baidu App Id": {
+					"type": "string",
+					"description": "百度申请的app id"
+				},
+				"easy-i18n-helper.Baidu App Token": {
+					"type": "string",
+					"description": "百度申请的app token"
+				},
+				"easy-i18n-helper.languages": {
+					"type": "array",
+					"description": "语言列表",
+					"default": [
+						"zh:zh_CN",
+						"en:en_US"
+					]
+				},
+				"easy-i18n-helper.Locales Path": {
+					"type": "string",
+					"description": "存放国际化文件的文件夹地址",
+					"default": "./src/locales"
+				},
+				"easy-i18n-helper.Method Name": {
+					"type": "string",
+					"description": "方法名",
+					"default": "t"
+				},
+				"easy-i18n-helper.File Type": {
+					"type": "string",
+					"description": "国际化文件后缀名",
+					"default": "ts"
+				},
+				"easy-i18n-helper.Import Codes": {
+					"type": "string",
+					"description": "导入国际化方法的代码",
+					"default": "import { t } from 'utils';\n"
+				}
+			}
+		},
 		"commands": [
 			{
-				"command": "easy-i18n-helper.helloWorld",
-				"title": "Hello World"
+				"command": "easy-i18n-helper.translate",
+				"title": "翻译当前页面"
 			}
-		]
+		],
+		"menus": {
+			"editor/context": [
+				{
+					"when": "resourceLangId == javascript || resourceLangId == javascriptreact || resourceLangId == typescript || resourceLangId == typescriptreact",
+					"command": "easy-i18n-helper.translate",
+					"group": "navigation@6"
+				}
+			]
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "yarn run package",
@@ -33,19 +81,32 @@
 		"test": "node ./out/test/runTest.js"
 	},
 	"devDependencies": {
-		"@types/vscode": "^1.76.0",
+		"@types/babel__generator": "^7.6.4",
+		"@types/babel__traverse": "^7.18.3",
+		"@types/ejs": "^3.1.2",
 		"@types/glob": "^7.2.0",
 		"@types/mocha": "^9.1.0",
 		"@types/node": "14.x",
+		"@types/vscode": "^1.76.0",
 		"@typescript-eslint/eslint-plugin": "^5.12.1",
 		"@typescript-eslint/parser": "^5.12.1",
+		"@vscode/test-electron": "^2.1.2",
 		"eslint": "^8.9.0",
 		"glob": "^7.2.0",
 		"mocha": "^9.2.1",
-		"typescript": "^4.5.5",
 		"ts-loader": "^9.2.6",
+		"typescript": "^4.5.5",
 		"webpack": "^5.69.1",
-		"webpack-cli": "^4.9.2",
-		"@vscode/test-electron": "^2.1.2"
+		"webpack-cli": "^4.9.2"
+	},
+	"dependencies": {
+		"@babel/generator": "^7.21.3",
+		"@babel/parser": "^7.21.3",
+		"@babel/preset-env": "^7.20.2",
+		"@babel/preset-react": "^7.18.6",
+		"@babel/traverse": "^7.21.3",
+		"ejs": "^3.1.9",
+		"nanoid": "^4.0.2",
+		"querystring": "^0.2.1"
 	}
 }
