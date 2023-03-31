@@ -4,6 +4,7 @@ import traverse from '@babel/traverse';
 import { nanoid } from 'nanoid';
 import generator from '@babel/generator';
 
+import * as prettier from 'prettier';
 import * as t from '@babel/types';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -225,7 +226,17 @@ export class Translate {
                 let transResult: any = {};
 
                 if (toTranslateWords.length) {
-                  transResult = await translates(toTranslateWords, lang.langType);
+                  try {
+                    transResult = await translates(toTranslateWords, lang.langType);
+                  } catch {
+                    if (this.titleChangeTimer) {
+                      globalThis.clearInterval(this.titleChangeTimer);
+                    }
+                    // 退到中文列表页面
+                    this.webviewPanel.title = "中文列表";
+                    this.webviewPanel.webview.html = this.getWordWebviewHtml();
+                    throw new Error();
+                  }
                   if (i !== toTranslateLanguages.length - 1) {
                     await sleep(1000);
                   }
@@ -318,10 +329,21 @@ export class Translate {
 
             traverse(ast, visitor);
 
-            const newContent = generator(ast, { jsescOption: { minimal: true } }).code;
+            const newContent = generator(ast, {
+              jsescOption: { minimal: true },
+            }).code;
 
-            if (newContent) {
-              fs.writeFileSync(fullFilePath, newContent);
+            const formatted = prettier.format(
+              newContent,
+              {
+                parser: 'babel',
+                trailingComma: 'all',
+              }
+            );
+
+
+            if (formatted) {
+              fs.writeFileSync(fullFilePath, formatted);
             }
           });
 
@@ -330,7 +352,7 @@ export class Translate {
             await window.showTextDocument(this.currentTextDocumentFileUri);
           }
 
-          await this.replaceeEditorText();
+          await this.replaceEditorText();
           await this.importMethod();
 
           this.webviewPanel?.dispose();
@@ -351,14 +373,14 @@ export class Translate {
       ImportDefaultSpecifier: (nodePath: any) => {
         if (nodePath.node.local.name === this.methodName) {
           isImported = true;
-          return "break";
+          nodePath.stop();
         }
       },
       // eslint-disable-next-line @typescript-eslint/naming-convention
       ImportSpecifier: (nodePath: any) => {
         if (nodePath.node.local.name === this.methodName) {
           isImported = true;
-          return "break";
+          nodePath.stop();
         }
       },
     };
@@ -372,7 +394,7 @@ export class Translate {
     }
   }
 
-  private async replaceeEditorText() {
+  private async replaceEditorText() {
     await window?.activeTextEditor?.edit(editBuilder => {
       this.translateWords?.forEach((element: any) => {
         const { loc } = element;
@@ -523,3 +545,4 @@ export class Translate {
     return fs.readFileSync(path.join(this.context.extensionPath, './src/html/loading.ejs')).toString();
   }
 }
+

@@ -201,74 +201,9 @@
         translate();
       }
     }
+    
     document.querySelector('.table').addEventListener('click', tableClick);
     document.querySelector(".button").addEventListener('click', translate);
-  </script>
-  <script>
-    // const vscode = acquireVsCodeApi();
-
-
-
-    // document.querySelectorAll('td').forEach(ele => {
-    //   ele.onclick = (e) => {
-    //     if (ele.classList.contains('src')) {
-    //       vscode.postMessage({
-    //         data: {
-    //           startLine: ele.getAttribute('startLine'),
-    //           startColumn: ele.getAttribute('startColumn'),
-    //           endLine: ele.getAttribute('endLine'),
-    //           endColumn: ele.getAttribute('endColumn'),
-    //           isJsxAtt: ele.hasAttribute("jsx"),
-    //           needAdd: ele.hasAttribute("need"),
-    //           componentType: ele.getAttribute("componentType"),
-    //         },
-    //         type: "open",
-    //       });
-    //       return;
-    //     } else {
-    //       if (e.target.tagName === "A") {
-    //         e.target.parentNode.parentNode.remove();
-    //       }
-    //     }
-    //   }
-    // })
-
-    // document.querySelector(".button").onclick = () => {
-    //   translate();
-    // }
-
-    // document.onkeyup = (e) => {
-    //   if (e.keyCode === 13) {
-    //     translate();
-    //   }
-    // }
-
-    // function translate() {
-    //   const data = [];
-    //   document.querySelectorAll("tr").forEach((ele, index) => {
-    //     if (index > 0) {
-    //       const row = {};
-    //       let element = ele.children[0];
-    //       row.value = element.innerText;
-    //       row.startLine = element.getAttribute("startLine");
-    //       row.startColumn = element.getAttribute("startColumn");
-    //       row.endLine = element.getAttribute("endLine");
-    //       row.endColumn = element.getAttribute("endColumn");
-    //       row.isJsxAttr = element.hasAttribute("jsx");
-    //       row.needAdd = element.hasAttribute("need");
-    //       row.componentType = element.getAttribute("componentType");
-    //       row.leftSpaceLength = element.getAttribute("leftSpaceLength");
-    //       row.rightSpaceLength = element.getAttribute("rightSpaceLength");
-    //       row.isJsxText = element.hasAttribute("jsxText");
-    //       data.push(row);
-    //     }
-    //   });
-    //   vscode.postMessage({
-    //     data,
-    //     type: "translate",
-    //   });
-    // }
-
   </script>
 </body>
 
