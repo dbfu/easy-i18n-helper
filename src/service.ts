@@ -42,7 +42,7 @@ export const saveToLocalFile = (
     }
 
     const newWords = data.reduce((prev: { key: string, value: string }[], item: any) => {
-      if (!item[lang.langType]?.exists) {
+      if (!item[lang.langType]?.exists && prev.some(o => o.key === item.key)) {
         prev.push({
           key: item.key,
           value: item[lang.langType]?.value,

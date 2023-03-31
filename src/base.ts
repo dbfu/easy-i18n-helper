@@ -110,17 +110,6 @@ export abstract class BaseI18nHelper {
     });
 
     this.webviewPanel.webview.html = getWordWebviewHtml(this.context, this.words);
-
-
-    this.webviewPanel = window.createWebviewPanel(
-      'translate',
-      "中文列表",
-      columnToShowIn || ViewColumn.Active,
-      {
-        retainContextWhenHidden: true,
-        enableScripts: true
-      }
-    );
     this.webviewPanel.webview.onDidReceiveMessage((e) => this.didReceiveMessageHandle(e));
   }
 
