@@ -1,3 +1,5 @@
+import { customAlphabet } from 'nanoid';
+
 import * as vscode from 'vscode';
 import * as http from 'http';
 import * as querystring from 'querystring';
@@ -84,4 +86,9 @@ export function showError(errorText: string) {
   if (errorText) {
     vscode.window.showErrorMessage(errorText);
   }
+}
+
+export function getId(): string {
+  const alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  return customAlphabet(alphabet, 20)();
 }

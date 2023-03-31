@@ -1,7 +1,6 @@
 import { Position, Range, window } from 'vscode';
 import { ParseResult, parse } from '@babel/parser';
 import traverse from '@babel/traverse';
-import { nanoid } from 'nanoid';
 
 import * as t from '@babel/types';
 import * as path from 'path';
@@ -9,6 +8,7 @@ import * as path from 'path';
 import { BaseI18nHelper } from '../../base';
 import { Words } from '../../interface';
 import { getValue } from '../../service';
+import { getId } from '../../utils/utils';
 
 export class ReactI18nHelper extends BaseI18nHelper {
 
@@ -74,7 +74,7 @@ export class ReactI18nHelper extends BaseI18nHelper {
             value: path.node.value,
             loc: path.node.loc,
             isJsxAttr: path.parent.type === "JSXAttribute",
-            id: nanoid(),
+            id: getId(),
           });
         }
       },
@@ -82,7 +82,7 @@ export class ReactI18nHelper extends BaseI18nHelper {
         if (/[\u4e00-\u9fa5]/.test(path.node.value)) {
           const val = path.node.value.replace(/\n/g, '').trim();
           words.push({
-            id: nanoid(),
+            id: getId(),
             value: val,
             loc: path.node.loc,
             isJsxAttr: true,
@@ -95,7 +95,7 @@ export class ReactI18nHelper extends BaseI18nHelper {
         if (/[\u4e00-\u9fa5]/.test(path.node.value.raw)) {
           const val = path.node.value.raw.replace(/\n/g, '').trim();
           words.push({
-            id: nanoid(),
+            id: getId(),
             value: val,
             loc: path.node.loc,
             isTemplate: true,

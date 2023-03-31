@@ -136,6 +136,21 @@
         background-size: 0% 0%;
       }
     }
+
+    .badge {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+
+    .exists {
+      background-color: #fa8c16;
+    }
+
+    .new {
+      background-color: #52c41a;
+    }
   </style>
   <script>
     window.words = <%- JSON.stringify(words) %>;
@@ -174,7 +189,11 @@
             <%= item[lang.langType].value %>
           </td>
           <td data-id="<%=item.id%>">
-            <%= item[lang.langType].exists ? '已存在' : '新增' %>
+            <% const colorClass=item[lang.langType].exists ? 'exists' : 'new' %>
+              <span class="badge <%= colorClass %>"></span>
+              <span>
+                <%= item[lang.langType].exists ? '已存在' : '新增' %>
+              </span>
           </td>
           <% }) %>
       </tr>

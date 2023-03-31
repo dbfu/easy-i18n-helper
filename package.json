@@ -29,7 +29,10 @@
 					"default": [
 						"zh:zh_CN",
 						"en:en_US"
-					]
+					],
+					"items": {
+						"type": "string"
+					}
 				},
 				"easy-i18n-helper.Locales Path": {
 					"type": "string",
@@ -57,6 +60,14 @@
 			{
 				"command": "easy-i18n-helper.translate",
 				"title": "翻译当前页面"
+			}
+		],
+		"keybindings": [
+			{
+				"command": "easy-i18n-helper.translate",
+				"key": "ctrl+shift+t",
+				"mac": "cmd+shift+t",
+				"when": "resourceLangId == javascript || resourceLangId == javascriptreact || resourceLangId == typescript || resourceLangId == typescriptreact"
 			}
 		],
 		"menus": {
