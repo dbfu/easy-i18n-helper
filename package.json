@@ -2,7 +2,7 @@
 	"name": "easy-i18n-helper",
 	"displayName": "easy-i18n-helper",
 	"description": "支持自动获取文件代码中的中文，自动翻译成各种语言并自动保存到本地。",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"engines": {
 		"vscode": "^1.76.0"
 	},
@@ -14,12 +14,12 @@
 		"translate"
 	],
 	"repository": {
-    "type": "git",
-    "url": "https://github.com/dbfu/easy-i18n-helper"
-  },
-  "bugs": {
-    "url": "https://github.com/dbfu/easy-i18n-helper/issues"
-  },
+		"type": "git",
+		"url": "https://github.com/dbfu/easy-i18n-helper"
+	},
+	"bugs": {
+		"url": "https://github.com/dbfu/easy-i18n-helper/issues"
+	},
 	"categories": [
 		"Other"
 	],
@@ -119,6 +119,7 @@
 		"@typescript-eslint/eslint-plugin": "^5.12.1",
 		"@typescript-eslint/parser": "^5.12.1",
 		"@vscode/test-electron": "^2.1.2",
+		"copy-webpack-plugin": "^11.0.0",
 		"eslint": "^8.9.0",
 		"glob": "^7.2.0",
 		"mocha": "^9.2.1",
