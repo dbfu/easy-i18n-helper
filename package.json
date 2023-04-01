@@ -2,7 +2,7 @@
 	"name": "easy-i18n-helper",
 	"displayName": "easy-i18n-helper",
 	"description": "支持自动获取文件代码中的中文，自动翻译成各种语言并自动保存到本地。",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"engines": {
 		"vscode": "^1.76.0"
 	},
