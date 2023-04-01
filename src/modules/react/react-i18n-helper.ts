@@ -112,8 +112,13 @@ export class ReactI18nHelper extends BaseI18nHelper {
         sourceType: "module",
         plugins: [
           "jsx",
-          "flow",
-          ["decorators", { "decoratorsBeforeExport": true }],
+          [
+            "decorators",
+            {
+              "decoratorsBeforeExport": true
+            }
+          ],
+          "typescript",
         ],
       });
       return this.ast;
