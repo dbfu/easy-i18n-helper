@@ -8,7 +8,7 @@ import * as prettier from 'prettier';
 import * as fs from 'fs';
 import * as path from 'path';
 
-import { BaseI18nHelper } from './base';
+import type { BaseI18nHelper } from './base';
 import { Words } from './interface';
 
 export const saveToLocalFile = (
