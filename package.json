@@ -1,14 +1,16 @@
 {
 	"name": "easy-i18n-helper",
-	"displayName": "",
+	"displayName": "easy-i18n-helper",
 	"description": "支持自动获取文件代码中的中文，自动翻译成各种语言并自动保存到本地。",
 	"version": "0.0.1",
 	"engines": {
 		"vscode": "^1.76.0"
 	},
+	"icon": "translate",
 	"categories": [
 		"Other"
 	],
+	"publisher": "dbfu321",
 	"activationEvents": [],
 	"main": "./dist/extension.js",
 	"contributes": {
